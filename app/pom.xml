@@ -16,7 +16,7 @@
 
     <dependencies>
         <dependency>
-            <!-- tray notifications headed "slackfx" with its icon. Not on Maven Central yet: install it from its own repository first. -->
+            <!-- tray notifications headed "slackfx" with its icon -->
             <groupId>io.github.littlejlib</groupId>
             <artifactId>littlejlib-traynotify</artifactId>
             <version>0.1</version>
@@ -31,8 +31,8 @@
             <artifactId>picocli</artifactId>
         </dependency>
         <dependency>
-            <groupId>io.github.xyz-jphil</groupId>
-            <artifactId>xyz-jphil-windows_console_set_unicode_output</artifactId>
+            <groupId>io.github.littlejlib</groupId>
+            <artifactId>littlejlib-windows_console_set_unicode_output</artifactId>
         </dependency>
         <dependency>
             <groupId>io.github.jarrunner</groupId>

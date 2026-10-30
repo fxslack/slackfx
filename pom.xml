@@ -61,8 +61,8 @@
                 <version>${picocli.version}</version>
             </dependency>
             <dependency>
-                <groupId>io.github.xyz-jphil</groupId>
-                <artifactId>xyz-jphil-windows_console_set_unicode_output</artifactId>
+                <groupId>io.github.littlejlib</groupId>
+                <artifactId>littlejlib-windows_console_set_unicode_output</artifactId>
                 <version>1.0</version>
             </dependency>
             <dependency>

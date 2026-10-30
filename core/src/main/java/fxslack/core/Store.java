@@ -11,7 +11,10 @@ public final class Store {
 
     private Store() { }
 
-    public static Path home() { return Path.of(System.getProperty("user.home"), "fxslack", "slackfx"); }
+    public static Path home() {
+        var set = System.getProperty("slackfx.home");
+        return set != null ? Path.of(set) : Path.of(System.getProperty("user.home"), "fxslack", "slackfx");
+    }
 
     public static Path sessionsPath() { return home().resolve("sessions.json"); }
 

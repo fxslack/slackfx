@@ -1,0 +1,239 @@
+{
+  "team": {
+    "id": "T0DEMO001",
+    "name": "Acme Robotics",
+    "url": "https://acme-robotics.example.com/"
+  },
+  "me": "U0DEMO001",
+  "users": [
+    {
+      "id": "U0DEMO001",
+      "name": "maya",
+      "real_name": "Maya Chen"
+    },
+    {
+      "id": "U0DEMO002",
+      "name": "tomas",
+      "real_name": "Tomás Ortiz"
+    },
+    {
+      "id": "U0DEMO003",
+      "name": "priya",
+      "real_name": "Priya Raman"
+    },
+    {
+      "id": "U0DEMO004",
+      "name": "lena",
+      "real_name": "Lena Fischer"
+    },
+    {
+      "id": "U0DEMO005",
+      "name": "sam",
+      "real_name": "Sam Okafor"
+    }
+  ],
+  "conversations": [
+    {
+      "id": "C0DEMO001",
+      "name": "general",
+      "kind": "public",
+      "ago": 190
+    },
+    {
+      "id": "C0DEMO002",
+      "name": "design",
+      "kind": "public",
+      "ago": 75
+    },
+    {
+      "id": "C0DEMO003",
+      "name": "release",
+      "kind": "private",
+      "ago": 40,
+      "unread": 2
+    },
+    {
+      "id": "C0DEMO004",
+      "name": "random",
+      "kind": "public",
+      "ago": 1500
+    },
+    {
+      "id": "C0DEMO005",
+      "name": "support",
+      "kind": "public",
+      "ago": 340
+    },
+    {
+      "id": "D0DEMO003",
+      "user": "U0DEMO003",
+      "kind": "im",
+      "ago": 22,
+      "unread": 1
+    },
+    {
+      "id": "D0DEMO002",
+      "user": "U0DEMO002",
+      "kind": "im",
+      "ago": 120
+    },
+    {
+      "id": "D0DEMO004",
+      "user": "U0DEMO004",
+      "kind": "im",
+      "ago": 2900
+    },
+    {
+      "id": "G0DEMO009",
+      "name": "mpdm-maya--tomas--priya-1",
+      "kind": "mpim",
+      "ago": 598
+    }
+  ],
+  "messages": {
+    "C0DEMO003": [
+      {
+        "ago": 1800,
+        "user": "U0DEMO003",
+        "text": "Release *0.9.4* is cut. The changelog is in the thread, and `main` is frozen until the smoke tests finish.",
+        "reactions": [
+          {
+            "name": "rocket",
+            "count": 3
+          },
+          {
+            "name": "eyes",
+            "count": 1
+          }
+        ],
+        "reply_count": 3
+      },
+      {
+        "ago": 1755,
+        "user": "U0DEMO002",
+        "text": "Repro for the flaky test:\n```./gradlew test --tests TimerTest --rerun\n```",
+        "edited": true
+      },
+      {
+        "ago": 1700,
+        "bot": "Build Bot",
+        "attachment": {
+          "title": "Build #412 passed",
+          "text": "main · 6 jobs · 4 min 12 s",
+          "link": "https://ci.example.com/runs/412"
+        }
+      },
+      {
+        "ago": 60,
+        "user": "U0DEMO004",
+        "text": "Release notes for 0.9.4, ready for a last read:",
+        "files": [
+          "release-notes-0.9.4.pdf"
+        ]
+      },
+      {
+        "ago": 40,
+        "user": "U0DEMO001",
+        "text": "Thanks all. <@U0DEMO003>, the <https://example.com/changelog|changelog draft> reads well to me. I will tag it once Windows is green."
+      }
+    ],
+    "C0DEMO001": [
+      {
+        "ago": 1500,
+        "user": "U0DEMO005",
+        "text": "Reminder: the office closes early on Friday, so please plan deliveries for the morning."
+      },
+      {
+        "ago": 190,
+        "user": "U0DEMO004",
+        "text": "Welcome <@U0DEMO005>'s new desk neighbour! The kettle is on the second floor. :coffee:",
+        "reactions": [
+          {
+            "name": "heart",
+            "count": 5
+          }
+        ]
+      }
+    ],
+    "C0DEMO002": [
+      {
+        "ago": 300,
+        "user": "U0DEMO004",
+        "text": "New icon set is in the shared folder. *Please* check the small sizes before we sign off."
+      },
+      {
+        "ago": 75,
+        "user": "U0DEMO001",
+        "text": "At 16 px the second row blurs. I will redraw those by hand and send them over this afternoon.",
+        "reactions": [
+          {
+            "name": "+1",
+            "count": 2
+          }
+        ]
+      }
+    ],
+    "C0DEMO004": [
+      {
+        "ago": 1500,
+        "user": "U0DEMO002",
+        "text": "Anyone up for a lunchtime walk? The weather is good."
+      }
+    ],
+    "C0DEMO005": [
+      {
+        "ago": 340,
+        "user": "U0DEMO005",
+        "text": "Three tickets today, all about the export dialog. Fixed in 0.9.4, I will reply with the link."
+      }
+    ],
+    "D0DEMO003": [
+      {
+        "ago": 70,
+        "user": "U0DEMO003",
+        "text": "Do you have five minutes before the release call?"
+      },
+      {
+        "ago": 66,
+        "user": "U0DEMO001",
+        "text": "Yes, give me ten. I am finishing the changelog."
+      },
+      {
+        "ago": 22,
+        "user": "U0DEMO003",
+        "text": "Perfect, thank you. I will put the Windows build numbers in the thread."
+      }
+    ],
+    "D0DEMO002": [
+      {
+        "ago": 125,
+        "user": "U0DEMO002",
+        "text": "The retry group is in. Could you look at the pull request when you have a moment?"
+      },
+      {
+        "ago": 120,
+        "user": "U0DEMO001",
+        "text": "Looking now."
+      }
+    ],
+    "D0DEMO004": [
+      {
+        "ago": 2900,
+        "user": "U0DEMO004",
+        "text": "The icon file is shared with you."
+      }
+    ],
+    "G0DEMO009": [
+      {
+        "ago": 600,
+        "user": "U0DEMO002",
+        "text": "Shall we move the sync to Thursday?"
+      },
+      {
+        "ago": 598,
+        "user": "U0DEMO003",
+        "text": "Thursday works for me."
+      }
+    ]
+  }
+}

@@ -3,6 +3,7 @@ package fxslack.slackfx;
 import leasegate.core.IdleTrim;
 import fxslack.core.AppLink;
 import fxslack.core.Cx;
+import fxslack.core.Demo;
 import fxslack.core.Store;
 
 import module java.base;
@@ -20,7 +21,7 @@ public final class SlackFx {
         var started = ProcessHandle.current().info().startInstant().orElse(Instant.now());
         Log.info("main reached " + Duration.between(started, Instant.now()).toMillis() + " ms after the process started (launcher + JVM)");
         if (showRunning()) return;
-        Thread.setDefaultUncaughtExceptionHandler((t, ex) -> Log.error("uncaught in " + t.getName(), ex));        var cx = Cx.open(null); // the active account: the durable xoxp- session by default
+        Thread.setDefaultUncaughtExceptionHandler((t, ex) -> Log.error("uncaught in " + t.getName(), ex));        var cx = Demo.on() ? Cx.demo() : Cx.open(null); // the active account: the durable xoxp- session by default
         Log.info("slackfx starting as " + cx.session.label() + " (" + cx.session.userName() + " / " + cx.session.teamName() + ")");
         Runnable open = () -> Fx.run(() -> {
             Log.info("opening the window (JavaFX running)");
@@ -38,9 +39,10 @@ public final class SlackFx {
             return Fx.call(() -> Snap.png(w.frame.stage.getScene(), Store.home().resolve("run").resolve("slackfx-window.png"))).toString();
         });
         server.demoNotify = () -> tray.notify("Test sender in #general", "This is a sample slackfx notification. Click it within 30 s to open the window.", open);
+        if (Demo.on()) server.openConversation = id -> Fx.run(() -> { if (window == null) window = new ChatWindow(cx); window.openConversation(id); });
         server.start();
         IdleTrim.start("slackfx", () -> later(server.lastActivity, window == null ? Instant.EPOCH : window.lastActivity), Duration.ofMinutes(2));
-        UiUpdates.start();
+        if (!Demo.on()) UiUpdates.start();
         Log.info("slackfx running");
         if (!List.of(args).contains("--background")) open.run();
         Thread.currentThread().join();

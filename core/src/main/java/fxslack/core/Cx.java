@@ -19,6 +19,9 @@ public final class Cx {
         this.cache = Store.loadCache(session.teamId());
     }
 
+    /// The made-up workspace of `slackfx --demo`.
+    public static Cx demo() { return new Cx(Demo.session()); }
+
     public static Cx open(String account) {
         var s = Store.loadSessions().resolve(account).orElseThrow(() -> new SlException(
             "no saved account -- log in to Slack in the browser, then run 'slackfx auth'"));

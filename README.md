@@ -6,6 +6,10 @@ A small Slack client for Windows, and a Slack command line, in one program: `sla
 
 Status: 0.1, early. Windows only. Organisation [fxslack](https://fxslack.github.io). Not affiliated with Slack or Salesforce; "Slack" is their trademark.
 
+![slackfx showing the release channel of an invented workspace](docs/screenshots/release.png)
+
+The screenshots show an invented workspace. `slackfx --demo` opens the same one on your machine, with no Slack login and its own state folder, so you can look around before setting anything up.
+
 ## Why
 
 The official Slack desktop app runs several processes and holds around a gigabyte of RAM. **slackfx** is one process: a tray icon that stays resident, and a chat window that opens when you want it. Measured on one machine in October 2026, the official app used about 1,000 MB a half minute after a cold start; slackfx used about 200 MB with its window open and a channel loaded, and about 40 MB a couple of minutes after the window was closed.

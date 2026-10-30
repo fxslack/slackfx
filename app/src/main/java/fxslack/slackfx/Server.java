@@ -4,6 +4,7 @@ import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpServer;
 import fxslack.core.AppLink;
 import fxslack.core.Cx;
+import fxslack.core.Demo;
 
 import module java.base;
 
@@ -23,6 +24,7 @@ public final class Server {
     volatile Instant lastActivity = Instant.now();
     /// Raises a sample notification through the real path, to see how one looks without waiting for a message.
     Runnable demoNotify = () -> { };
+    java.util.function.Consumer<String> openConversation;
     HttpServer http;
 
     public Server(Cx cx, Runnable show, Callable<String> snapshot) { this.cx = cx; this.show = show; this.snapshot = snapshot; }
@@ -37,6 +39,7 @@ public final class Server {
         http.createContext("/show", ex -> guarded(ex, () -> { show.run(); return "shown"; }));
         http.createContext("/snapshot", ex -> guarded(ex, snapshot::call));
         http.createContext("/notify-test", ex -> guarded(ex, () -> { demoNotify.run(); return "notified"; }));
+        if (Demo.on()) http.createContext("/open", ex -> guarded(ex, () -> { openConversation.accept(ex.getRequestURI().getQuery().replaceFirst("^id=", "")); return "opened"; }));
         http.createContext("/stop", ex -> guarded(ex, () -> { Thread.ofVirtual().start(this::stop); return "stopping"; }));
         http.setExecutor(Executors.newVirtualThreadPerTaskExecutor());
         http.start();

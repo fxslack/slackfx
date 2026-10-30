@@ -20,6 +20,7 @@ public final class Api {
     public Api(SlSession s) { this.s = s; }
 
     public JsonNode call(String method, Map<String, ?> params) {
+        if (Demo.on()) return Demo.call(method, params);
         for (var attempt = 0; ; attempt++) {
             var res = post(method, params);
             if (res.statusCode() == 429 && attempt < 3) {

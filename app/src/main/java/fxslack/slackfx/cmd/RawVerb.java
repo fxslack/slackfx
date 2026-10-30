@@ -7,7 +7,7 @@ import fxslack.core.*;
 
 import module java.base;
 
-@Command(name = "raw", description = {"Call any Slack Web API method: slackfx raw conversations.members channel=C123 limit=50",
+@Command(name = "raw", description = {"Call any Web API method: slackfx raw conversations.members channel=C123 limit=50",
     "For anything not wrapped as its own verb yet. Prints the JSON reply."})
 public final class RawVerb implements Runnable {
 
@@ -23,6 +23,6 @@ public final class RawVerb implements Runnable {
             if (i < 1) throw new SlException("'" + kv + "' is not key=value");
             p.put(kv.substring(0, i), kv.substring(i + 1));
         });
-        Out.json(cx.api.call(method, p));
+        Out.json(Api.isRead(method) ? cx.api.call(method, p) : cx.write(method, p));
     }
 }

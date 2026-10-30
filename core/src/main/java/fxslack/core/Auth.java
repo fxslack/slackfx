@@ -27,8 +27,8 @@ public final class Auth {
             p.putArray("urls").add("https://app.slack.com/").add("https://slack.com/");
             cookies = cookies(gate.call(sid, "Network.getCookies", p));
         }
-        if (config.isBlank()) throw new SlException("the Slack tab holds no workspace config -- log in at https://app.slack.com in that profile");
-        if (!cookies.containsKey("d")) throw new SlException("no 'd' cookie for slack.com in that profile -- log in to Slack there first");
+        if (config.isBlank()) throw new SlException("the tab holds no workspace config -- log in at https://app.slack.com in that profile");
+        if (!cookies.containsKey("d")) throw new SlException("no 'd' cookie for slack.com in that profile -- log in there first");
         return sessions(config, cookies, page, only);
     }
 
@@ -48,7 +48,7 @@ public final class Auth {
                 }
             });
         } catch (Exception e) {
-            throw new SlException("cannot read the Slack workspace config", e);
+            throw new SlException("cannot read the workspace config", e);
         }
         if (out.isEmpty()) throw new SlException("no usable workspace session found in that profile");
         return out;

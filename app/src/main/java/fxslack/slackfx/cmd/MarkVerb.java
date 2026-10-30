@@ -19,7 +19,7 @@ public final class MarkVerb implements Runnable {
         var id = cx.channelId(channel);
         var upTo = ts != null ? Ref.ts(ts) : Ref.PERMALINK.matcher(channel).find() ? Ref.ts(channel)
             : cx.api.call("conversations.history", "channel", id, "limit", 1).path("messages").path(0).path("ts").asText();
-        cx.api.call("conversations.mark", "channel", id, "ts", upTo);
+        cx.write("conversations.mark", "channel", id, "ts", upTo);
         line("marked " + cx.channelLabel(id) + " read up to " + upTo);
     }
 }

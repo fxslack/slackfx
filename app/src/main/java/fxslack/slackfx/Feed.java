@@ -79,7 +79,7 @@ public final class Feed {
         Sound.chime();
         Bg.run(() -> {
             var user = e.path("user").asText("");
-            var who = user.isEmpty() ? e.path("username").asText("Slack") : cx.userName(user);
+            var who = user.isEmpty() ? e.path("username").asText("app") : cx.userName(user);
             var where = cx.channelLabel(conv);
             var labels = new HashMap<String, String>();
             var m = MessageList.MENTION.matcher(e.path("text").asText(""));

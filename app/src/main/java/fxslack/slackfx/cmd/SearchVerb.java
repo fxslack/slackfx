@@ -9,7 +9,7 @@ import fxslack.core.*;
 import static fxslack.core.Out.line;
 
 @Command(name = "search", description = {"Search messages across the workspace (public and private, everything you can see).",
-    "Slack search syntax works: from:@name in:#channel before:2026-10-01 after:2026-09-01 has:link \"exact phrase\"."})
+    "The search syntax of the workspace works: from:@name in:#channel before:2026-10-01 after:2026-09-01 has:link \"exact phrase\"."})
 public final class SearchVerb implements Runnable {
 
     @Mixin Common c;

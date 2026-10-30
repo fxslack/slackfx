@@ -176,7 +176,7 @@ public final class ChatWindow {
         status.setText("sending...");
         Bg.run(() -> {
             try {
-                cx.api.call("chat.postMessage", "channel", conv, "text", text);
+                cx.api.send("chat.postMessage", java.util.Map.of("channel", conv, "text", text));
                 Log.info("sent " + text.length() + " chars from the window");
                 Platform.runLater(() -> { status.setText("sent"); messages.newer(); });
             } catch (RuntimeException e) {

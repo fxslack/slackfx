@@ -2,6 +2,7 @@ package fxslack.slackfx;
 
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpServer;
+import fxslack.core.Api;
 import fxslack.core.AppLink;
 import fxslack.core.Cx;
 import fxslack.core.Demo;
@@ -14,7 +15,6 @@ import static fxslack.core.Out.M;
 /// ~/fxslack/slackfx/run/app.json. Reads (status) and, from Stage C, gated writes.
 public final class Server {
 
-    static final Set<String> WRITES = Set.of("chat.postMessage", "chat.update", "chat.delete", "reactions.add", "reactions.remove");
 
     final Cx cx;
     final Runnable show;
@@ -76,7 +76,7 @@ public final class Server {
     String write(HttpExchange ex) throws IOException {
         var body = M.readTree(ex.getRequestBody().readAllBytes());
         var method = body.path("method").asText();
-        if (!WRITES.contains(method)) throw new IllegalArgumentException("not a gated write method: " + method);
+        if (Api.isRead(method)) throw new IllegalArgumentException(method + " only reads: it needs no approval, call it directly");
         @SuppressWarnings("unchecked")
         Map<String, Object> params = M.convertValue(body.path("params"), Map.class);
         Log.info("write request: " + method + " -> " + params.getOrDefault("channel", "?"));
@@ -84,7 +84,7 @@ public final class Server {
             Log.info("write denied by user: " + method);
             throw new Denied();
         }
-        var r = cx.api.call(method, params);
+        var r = cx.api.send(method, params);
         Log.info("write approved and done: " + method);
         return r.toString();
     }
@@ -100,7 +100,11 @@ public final class Server {
             case "chat.delete" -> "Delete your message in " + ch + " (ts " + p.get("ts") + ")";
             case "reactions.add" -> "Add reaction :" + p.get("name") + ": in " + ch + " (ts " + p.get("timestamp") + ")";
             case "reactions.remove" -> "Remove reaction :" + p.get("name") + ": in " + ch + " (ts " + p.get("timestamp") + ")";
-            default -> method + " " + p;
+            case "conversations.mark" -> "Mark " + ch + " as read, up to ts " + p.get("ts") + " (this changes your unread state)";
+            case "chat.scheduleMessage", "drafts.create" -> "Schedule a message in " + (p.containsKey("destinations") ? "the destination below" : ch)
+                + " (it is sent later, as " + cx.session.userName() + "):\n\n" + p;
+            case "drafts.delete" -> "Cancel a scheduled message (draft " + p.get("draft_id") + ")";
+            default -> "Call " + method + " (it changes things in the workspace) with:\n\n" + p;
         };
     }
 

@@ -23,9 +23,14 @@ public final class Store {
     /// The OAuth app's config, written once at install: holds the durable `user_token` (xoxp-) and app credentials.
     public static Path appConfigPath() { return home().resolve("app-config.json"); }
 
+    /// Writes need a person's approval unless app-config.json says "require_approval": false. Also true when there is no such file.
+    public static boolean requireApproval() {
+        return !Files.exists(appConfigPath()) || appConfig().path("require_approval").asBoolean(true);
+    }
+
     public static JsonNode appConfig() {
         var p = appConfigPath();
-        if (!Files.exists(p)) throw new SlException("no " + p + " -- the Slack app has not been set up yet");
+        if (!Files.exists(p)) throw new SlException("no " + p + " -- the app has not been set up yet");
         try {
             return JSON.readTree(p.toFile());
         } catch (Exception e) {

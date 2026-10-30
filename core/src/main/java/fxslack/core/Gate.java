@@ -63,7 +63,7 @@ public final class Gate implements AutoCloseable {
         var tabs = pageTargets();
         return tabs.stream().filter(t -> t.path("url").asText().contains("app.slack.com")).findFirst()
             .or(() -> tabs.stream().findFirst())
-            .orElseThrow(() -> new SlException("no Slack tab in the approved profile(s) -- open and log in at"
+            .orElseThrow(() -> new SlException("no workspace tab in the approved profile(s) -- open and log in at"
                 + " https://app.slack.com in that browser profile, or name it with --profiles (cdpg profiles lists them)"));
     }
 
@@ -85,7 +85,7 @@ public final class Gate implements AutoCloseable {
             if (res.has("error")) throw new SlException(method + " failed: " + res.path("error").path("message").asText());
             return res.path("result");
         } catch (TimeoutException e) {
-            throw new SlException(method + " got no answer in 20 s -- if the Slack tab is in the background, click it once"
+            throw new SlException(method + " got no answer in 20 s -- if the tab is in the background, click it once"
                 + " (Vivaldi does not load restored background tabs until they are shown) and retry");
         } catch (SlException e) {
             throw e;

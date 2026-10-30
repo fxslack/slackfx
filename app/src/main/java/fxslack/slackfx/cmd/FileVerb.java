@@ -10,7 +10,7 @@ import module java.base;
 
 import static fxslack.core.Out.line;
 
-@Command(name = "file", description = {"Download a Slack file, or read a canvas, by file id (F...) or its URL.",
+@Command(name = "file", description = {"Download a file, or read a canvas, by file id (F...) or its URL.",
     "Saves into the current folder under its own name; --out - prints it instead (how to read a canvas)."})
 public final class FileVerb implements Runnable {
 

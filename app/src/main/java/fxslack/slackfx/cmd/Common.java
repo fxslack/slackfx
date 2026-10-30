@@ -9,7 +9,7 @@ public final class Common {
         description = "Which stored account to use (any unambiguous fragment of its label); default is the active one")
     String account;
 
-    @Option(names = "--json", description = "Print the raw Slack response instead of readable lines")
+    @Option(names = "--json", description = "Print the raw response instead of readable lines")
     boolean json;
 
     public Cx open() { return Cx.open(account); }

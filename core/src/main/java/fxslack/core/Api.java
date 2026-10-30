@@ -19,7 +19,24 @@ public final class Api {
 
     public Api(SlSession s) { this.s = s; }
 
+    /// Methods that only read. Everything else changes something in the workspace and must be approved (Cx.write).
+    static final Set<String> READS = Set.of("api.test", "auth.test", "bookmarks.list", "bots.info", "chat.getPermalink",
+        "chat.scheduledMessages.list", "conversations.history", "conversations.info", "conversations.list", "conversations.members",
+        "conversations.open", "conversations.replies", "dnd.info", "drafts.list", "emoji.list", "files.info", "files.list", "pins.list",
+        "reactions.get", "reactions.list", "reminders.info", "reminders.list", "search.all", "search.files", "search.messages",
+        "stars.list", "team.info", "usergroups.list", "usergroups.users.list", "users.conversations", "users.getPresence", "users.info",
+        "users.list", "users.lookupByEmail", "users.profile.get");
+
+    public static boolean isRead(String method) { return READS.contains(method); }
+
+    /// A read. A method that is not a known read is refused here: it has to go through Cx.write, which asks a person first.
     public JsonNode call(String method, Map<String, ?> params) {
+        if (!isRead(method)) throw new SlException(method + " changes things in the workspace, so it needs approval: it goes through a running slackfx (Cx.write)");
+        return send(method, params);
+    }
+
+    /// The call itself, with no check. Only for a write that a person has approved, or one made from the slackfx window.
+    public JsonNode send(String method, Map<String, ?> params) {
         if (Demo.on()) return Demo.call(method, params);
         for (var attempt = 0; ; attempt++) {
             var res = post(method, params);
@@ -93,8 +110,8 @@ public final class Api {
         return switch (err) {
             case "invalid_auth", "not_authed", "token_revoked", "account_inactive" ->
                 " -- the stored token no longer works; for the app token run 'slackfx auth --app', for a browser session log in and run 'slackfx auth'";
-            case "missing_scope" -> " -- the token was not granted this scope; add it to the Slack app's manifest and reinstall, or use a browser session";
-            case "not_allowed_token_type" -> " -- Slack does not accept this kind of token for this method";
+            case "missing_scope" -> " -- the token was not granted this scope; add it to the app's manifest and reinstall, or use a browser session";
+            case "not_allowed_token_type" -> " -- the service does not accept this kind of token for this method";
             default -> "";
         };
     }

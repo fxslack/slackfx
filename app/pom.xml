@@ -4,11 +4,11 @@
     <parent>
         <groupId>io.github.fxslack</groupId>
         <artifactId>fxslack-parent</artifactId>
-        <version>0.2.1</version>
+        <version>0.2.2</version>
     </parent>
     <artifactId>fxslack-slackfx</artifactId>
     <name>slackfx</name>
-    <description>slackfx: a small Slack client and command line, one program.</description>
+    <description>slackfx: a small chat client and command line, one program.</description>
 
     <properties>
         <main.class>fxslack.slackfx.Main</main.class>

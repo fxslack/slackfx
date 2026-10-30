@@ -1,7 +1,7 @@
 {
   "display_information": {
     "name": "slackfx",
-    "description": "A small Slack client and command line that act as you, with your own user token."
+    "description": "A small chat client and command line that act as you, with your own user token."
   },
   "oauth_config": {
     "scopes": {

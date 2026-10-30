@@ -3,10 +3,10 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>io.github.fxslack</groupId>
     <artifactId>fxslack-parent</artifactId>
-    <version>0.2.1</version>
+    <version>0.2.2</version>
     <packaging>pom</packaging>
     <name>slackfx</name>
-    <description>slackfx: a low-RAM JavaFX Slack client, and slk, a Slack command line, over one shared core. Not affiliated with Slack.</description>
+    <description>slackfx: a small chat client for Windows and a command line in one program. Independent project, not affiliated with Slack.</description>
     <url>https://github.com/fxslack/slackfx</url>
     <inceptionYear>2026</inceptionYear>
     <licenses>

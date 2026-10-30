@@ -6,7 +6,7 @@ import fxslack.core.*;
 
 import static fxslack.core.Out.line;
 
-@Command(name = "auth", description = {"Store a Slack account. By default reads the session(s) out of a logged-in browser tab.",
+@Command(name = "auth", description = {"Store an account. By default reads the session(s) out of a logged-in browser tab.",
     "--app imports the durable app user-token (xoxp-) from app-config.json instead: no browser, no cdpgate, no expiry.",
     "Browser capture goes through cdpgate (no debug port): the first run asks for approval in cdpgate's window.",
     "For browser capture, open https://app.slack.com in the profile first; every workspace it is signed in to is stored."})
@@ -15,7 +15,7 @@ public final class AuthVerb implements Runnable {
     @Option(names = "--app", description = "Import the durable app user-token (xoxp-) from app-config.json; no browser needed. Preferred.")
     boolean app;
 
-    @Option(names = "--profiles", split = ",", description = "Browser profile(s) holding the Slack tab, by name or folder (cdpg profiles lists them)")
+    @Option(names = "--profiles", split = ",", description = "Browser profile(s) holding the workspace tab, by name or folder (cdpg profiles lists them)")
     java.util.List<String> profiles;
 
     @Option(names = "--team", description = "Only this workspace (fragment of its name, domain or T-id)")

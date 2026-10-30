@@ -63,7 +63,7 @@ public class MakeBrand {
         g.drawString("slackfx", 500, 300);
         g.setColor(LILAC);
         g.setFont(new Font("Segoe UI", Font.PLAIN, 38));
-        g.drawString("A small Slack client and command line.", 504, 372);
+        g.drawString("A small chat client and command line.", 504, 372);
         g.drawString("One process. Command-line writes", 504, 426);
         g.drawString("need your approval.", 504, 476);
         g.setFont(new Font("Segoe UI", Font.PLAIN, 28));

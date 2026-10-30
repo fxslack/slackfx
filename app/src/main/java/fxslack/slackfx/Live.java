@@ -70,7 +70,7 @@ public final class Live implements WebSocket.Listener {
             var env = M.readTree(s);
             switch (env.path("type").asText()) {
                 case "hello" -> { connected = true; Log.info("socket connected (" + env.path("num_connections").asInt() + " connection(s))"); }
-                case "disconnect" -> { Log.info("socket: Slack asks to reconnect (" + env.path("reason").asText() + ")"); ws.sendClose(WebSocket.NORMAL_CLOSURE, ""); }
+                case "disconnect" -> { Log.info("socket: the service asks to reconnect (" + env.path("reason").asText() + ")"); ws.sendClose(WebSocket.NORMAL_CLOSURE, ""); }
                 case "events_api" -> {
                     ws.sendText(M.createObjectNode().put("envelope_id", env.path("envelope_id").asText()).toString(), true);
                     lastEvent = Instant.now();

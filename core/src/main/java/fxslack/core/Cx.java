@@ -24,7 +24,7 @@ public final class Cx {
 
     public static Cx open(String account) {
         var s = Store.loadSessions().resolve(account).orElseThrow(() -> new SlException(
-            "no saved account -- log in to Slack in the browser, then run 'slackfx auth'"));
+            "no saved account -- log in to your workspace in the browser, then run 'slackfx auth'"));
         return new Cx(s);
     }
 
@@ -37,9 +37,10 @@ public final class Cx {
 
     public JsonNode write(String method, Map<String, Object> params) {
         var app = AppLink.live();
-        if (app == null && Store.appConfig().path("require_approval").asBoolean(false))
-            throw new SlException("writes need slackfx running, to approve them (require_approval is on in app-config.json)");
-        if (app == null) return api.call(method, params);
+        if (app == null && Store.requireApproval())
+            throw new SlException("writes need a person to approve them: start slackfx (no arguments), then run this again."
+                + " (\"require_approval\": false in app-config.json lets writes go straight through.)");
+        if (app == null) return api.send(method, params);
         Out.err("waiting for approval in the slackfx window (F2 to approve)...");
         return GateClient.write(app, method, params);
     }

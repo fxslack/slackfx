@@ -6,7 +6,7 @@ import fxslack.core.*;
 
 import static fxslack.core.Out.line;
 
-@Command(name = "whoami", description = "Ask Slack who the stored session is (proves it still works)")
+@Command(name = "whoami", description = "Ask the service who the stored session is (proves it still works)")
 public final class WhoamiVerb implements Runnable {
 
     @Mixin Common c;

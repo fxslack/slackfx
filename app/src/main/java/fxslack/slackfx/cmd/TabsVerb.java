@@ -6,7 +6,7 @@ import fxslack.core.*;
 
 import static fxslack.core.Out.line;
 
-@Command(name = "tabs", description = "Slack pages the browser has open (through cdpgate: only slack.com tabs in the approved profiles)")
+@Command(name = "tabs", description = "Workspace pages the browser has open (through cdpgate: only the workspace's tabs in the approved profiles)")
 public final class TabsVerb implements Runnable {
 
     @Option(names = "--profiles", split = ",", description = "Browser profile(s) to look in")

@@ -11,7 +11,7 @@ import module java.desktop;
 /// a notification shown in the last 30 seconds is taken to be the one clicked and opens its conversation (as in wirefx).
 public final class Tray {
 
-    static final String TIP = "slackfx - Slack";
+    static final String TIP = "slackfx";
     static final long CLICK_MS = 30_000;
 
     final TrayIcon icon;

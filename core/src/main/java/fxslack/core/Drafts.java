@@ -18,7 +18,7 @@ public final class Drafts {
         var dest = M.createObjectNode().put("channel_id", channelId);
         if (threadTs != null) dest.put("thread_ts", threadTs);
         try {
-            return cx.api.call("drafts.create", "client_msg_id", UUID.randomUUID().toString(),
+            return cx.write("drafts.create", "client_msg_id", UUID.randomUUID().toString(),
                 "blocks", M.createArrayNode().add(block).toString(), "destinations", M.createArrayNode().add(dest).toString(),
                 "date_scheduled", postAt, "file_ids", "[]", "is_from_composer", false).path("draft");
         } catch (SlException e) {
@@ -36,7 +36,7 @@ public final class Drafts {
     }
 
     public static void cancel(Cx cx, JsonNode draft) {
-        cx.api.call("drafts.delete", "draft_id", draft.path("id").asText(), "client_last_updated_ts", draft.path("last_updated_ts").asText());
+        cx.write("drafts.delete", "draft_id", draft.path("id").asText(), "client_last_updated_ts", draft.path("last_updated_ts").asText());
     }
 
     /// The plain text inside a draft's rich_text blocks.

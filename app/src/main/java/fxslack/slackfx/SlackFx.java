@@ -40,6 +40,7 @@ public final class SlackFx {
         server.demoNotify = () -> tray.notify("Test sender in #general", "This is a sample slackfx notification. Click it within 30 s to open the window.", open);
         server.start();
         IdleTrim.start("slackfx", () -> later(server.lastActivity, window == null ? Instant.EPOCH : window.lastActivity), Duration.ofMinutes(2));
+        UiUpdates.start();
         Log.info("slackfx running");
         if (!List.of(args).contains("--background")) open.run();
         Thread.currentThread().join();

@@ -4,14 +4,14 @@
     <parent>
         <groupId>io.github.fxslack</groupId>
         <artifactId>fxslack-parent</artifactId>
-        <version>0.1.0</version>
+        <version>0.2.0</version>
     </parent>
     <artifactId>fxslack-slackfx</artifactId>
     <name>slackfx</name>
-    <description>slackfx: a resident low-RAM Slack client that also gates the command line's writes.</description>
+    <description>slackfx: a small Slack client and command line, one program.</description>
 
     <properties>
-        <main.class>fxslack.slackfx.SlackFx</main.class>
+        <main.class>fxslack.slackfx.Main</main.class>
     </properties>
 
     <dependencies>
@@ -25,6 +25,18 @@
             <groupId>io.github.fxslack</groupId>
             <artifactId>fxslack-core</artifactId>
             <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>info.picocli</groupId>
+            <artifactId>picocli</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.github.xyz-jphil</groupId>
+            <artifactId>xyz-jphil-windows_console_set_unicode_output</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.github.jarrunner</groupId>
+            <artifactId>jr-apputils</artifactId>
         </dependency>
         <dependency>
             <groupId>io.github.leasegate</groupId>

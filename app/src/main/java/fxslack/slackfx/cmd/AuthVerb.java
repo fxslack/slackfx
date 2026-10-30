@@ -1,4 +1,4 @@
-package fxslack.cli.cmd;
+package fxslack.slackfx.cmd;
 
 import picocli.CommandLine.Command;
 import picocli.CommandLine.Option;

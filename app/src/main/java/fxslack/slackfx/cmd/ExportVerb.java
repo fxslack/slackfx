@@ -1,4 +1,4 @@
-package fxslack.cli.cmd;
+package fxslack.slackfx.cmd;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import picocli.CommandLine.Command;

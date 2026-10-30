@@ -2,7 +2,7 @@
 
 # slackfx
 
-A small Slack client for Windows, and `slk`, a Slack command line, that share one login. Both act as you, with a Slack app you create in your own workspace, so there is no browser to keep open and nothing to scrape.
+A small Slack client for Windows, and a Slack command line, in one program: `slackfx` with no arguments is the client, `slackfx <verb>` is the command line. Both act as you, with a Slack app you create in your own workspace, so there is no browser to keep open and nothing to scrape.
 
 Status: 0.1, early. Windows only. Organisation [fxslack](https://fxslack.github.io). Not affiliated with Slack or Salesforce; "Slack" is their trademark.
 
@@ -10,7 +10,7 @@ Status: 0.1, early. Windows only. Organisation [fxslack](https://fxslack.github.
 
 The official Slack desktop app runs several processes and holds around a gigabyte of RAM. **slackfx** is one process: a tray icon that stays resident, and a chat window that opens when you want it. Measured on one machine in October 2026, the official app used about 1,000 MB a half minute after a cold start; slackfx used about 200 MB with its window open and a channel loaded, and about 40 MB a couple of minutes after the window was closed.
 
-**slk** reads and writes Slack from a terminal or from a script, and is made to be driven by AI coding agents. Reads are free. Writes (`send`, `edit`, `delete`, `react`) go through slackfx, which shows a window with exactly what is about to be posted and waits for a person to approve it with F2.
+**The command line** reads and writes Slack from a terminal or a script, and is made to be driven by AI coding agents. Reads are free. Writes (`send`, `edit`, `delete`, `react`) go through the running client, which shows a window with exactly what is about to be posted and waits for a person to approve it with F2. Put `"require_approval": true` in `app-config.json` and a write is refused when the client is not running, instead of going straight to Slack.
 
 ## What it does
 
@@ -24,37 +24,37 @@ The official Slack desktop app runs several processes and holds around a gigabyt
 - Keys, all single keys: Enter open or send, F2 conversations, F3 write, F5 older, F6 refresh, F7 copy the message, F11 maximise, Esc back or hide. The footer lists them.
 - Not built yet: opening a thread, downloading a file, editing or deleting from the window.
 
-### slk
+### The command line
 
 ```
-slk auth            store an account
-slk accounts        list accounts; the active one is starred
-slk use <account>   make an account the active one
-slk whoami          ask Slack who you are
-slk channels        the channels you are in (or all of them with --all)
-slk users           people, filtered by name, handle or email
-slk history         read a channel, oldest first
-slk thread          read a thread
-slk search          search messages across the workspace
-slk export          save a whole channel: messages, thread replies, files
-slk members         who is in a channel
-slk file            download a file, or read a canvas
-slk send            post a message, a thread reply, or a scheduled message
-slk edit, delete    change or remove one of your messages (a dry run unless --yes)
-slk react           add or remove an emoji reaction
-slk scheduled       list or cancel scheduled messages
-slk mark            mark a channel as read
-slk raw             call any Slack Web API method
+slackfx auth            store an account
+slackfx accounts        list accounts; the active one is starred
+slackfx use <account>   make an account the active one
+slackfx whoami          ask Slack who you are
+slackfx channels        the channels you are in (or all of them with --all)
+slackfx users           people, filtered by name, handle or email
+slackfx history         read a channel, oldest first
+slackfx thread          read a thread
+slackfx search          search messages across the workspace
+slackfx export          save a whole channel: messages, thread replies, files
+slackfx members         who is in a channel
+slackfx file            download a file, or read a canvas
+slackfx send            post a message, a thread reply, or a scheduled message
+slackfx edit, delete    change or remove one of your messages (a dry run unless --yes)
+slackfx react           add or remove an emoji reaction
+slackfx scheduled       list or cancel scheduled messages
+slackfx mark            mark a channel as read
+slackfx raw             call any Slack Web API method
 ```
 
 Every verb has `--help`. Examples:
 
 ```
-slk history "#general" -n 20
-slk search "release notes"
-slk send "#general" "Build is green"          a dry run: prints what would be posted
-slk send "#general" "Build is green" --yes    posts it
-slk send "#general" "Following up" --thread 1760000000.123456 --yes
+slackfx history "#general" -n 20
+slackfx search "release notes"
+slackfx send "#general" "Build is green"          a dry run: prints what would be posted
+slackfx send "#general" "Build is green" --yes    posts it
+slackfx send "#general" "Following up" --thread 1760000000.123456 --yes
 ```
 
 ## Set it up
@@ -71,34 +71,38 @@ slk send "#general" "Following up" --thread 1760000000.123456 --yes
    }
    ```
 
-5. Run `slk auth --app`, then `slk whoami`. Start `slackfx` for the tray and the window.
+5. Run `slackfx auth --app`, then `slackfx whoami`. Start `slackfx` for the tray and the window.
 
 An admin of your workspace may need to approve the app first. The tokens give whoever holds them access as you, so keep that file private (it is never part of this repository, and `.gitignore` lists it).
 
 ### Without creating an app
 
-`slk auth` with no option reads the session of a Slack tab that is already logged in, in a browser that [cdpgate](https://github.com/cdpai/gate) runs. That session token rotates and needs the browser's cookie, so the app token above is the better route; this one is for workspaces that do not let you install an app.
+`slackfx auth` with no option reads the session of a Slack tab that is already logged in, in a browser that [cdpgate](https://github.com/cdpai/gate) runs. That session token rotates and needs the browser's cookie, so the app token above is the better route; this one is for workspaces that do not let you install an app.
 
 ## Install
 
-Download `slackfx.exe` and `slk.exe` from the [latest release](https://github.com/fxslack/slackfx/releases/latest) and run them. They need Java 25 or later. Each exe fetches its program file from the same release and checks it against a checksum built into it. `slackfx.exe -Xjr:update` and `slk.exe -Xjr:update` move to a newer release. The exes are made with [jr](https://github.com/jarrunner/jr).
+Download `slackfx.exe` from the [latest release](https://github.com/fxslack/slackfx/releases/latest) and run it. It needs Java 25 or later. The exe fetches its program file from the same release and checks it against a checksum built into it. One exe is both the client and the command line; put it on your PATH to use the verbs.
+
+## Updates
+
+The client checks for a newer release shortly after it starts and then every 24 hours. When there is one it asks: a window says which version is out, F2 updates and restarts it in the tray, Esc leaves it for the next check. Nothing is downloaded or replaced without that answer. The command line mentions a newer release at most once a day, on stderr, and `slackfx update` installs it (`slackfx update --check` only looks). The checking and the swap are done by [jr](https://github.com/jarrunner/jr), the launcher that made the exe.
 
 ## Build from source
 
 Needs JDK 25 and Maven.
 
 ```
-mvn package          the jars, in core/, cli/ and app/ under target/
-mvn verify           also the exes, in cli/target/jr and app/target/jr
+mvn package          the jars, in core/ and app/ under target/
+mvn verify           also the exe, in app/target/jr
 ```
 
 `mvn -Djr.installDir=<folder> verify` copies the exes into a folder on your PATH. `mvn -Djr.source=url verify` builds the release exes, which fetch their jar from the GitHub release.
 
-slackfx and slk depend on four libraries that are published only as snapshots, or not yet at all: `leasegate-frame`, `cdpai-gate-client`, `littlejlib-traynotify` and `xyz-jphil-windows_console_set_unicode_output`. Until they are on Maven Central, install them from their repositories with `mvn install` before building.
+slackfx depends on four libraries that are published only as snapshots, or not yet at all: `leasegate-frame`, `cdpai-gate-client`, `littlejlib-traynotify` and `xyz-jphil-windows_console_set_unicode_output`. Until they are on Maven Central, install them from their repositories with `mvn install` before building.
 
 ## Where things are
 
-Everything slackfx and slk keep is in `%USERPROFILE%\fxslack\slackfx\`: `app-config.json` (the tokens), `sessions.json` (stored accounts), `cache/` (names, pictures, the last conversation list), `run/` (the log, and where slackfx listens). slackfx listens on `127.0.0.1` only, with a random token kept in your user profile.
+Everything slackfx keeps is in `%USERPROFILE%\fxslack\slackfx\`: `app-config.json` (the tokens), `sessions.json` (stored accounts), `cache/` (names, pictures, the last conversation list), `run/` (the log, and where slackfx listens). slackfx listens on `127.0.0.1` only, with a random token kept in your user profile.
 
 ## Licence
 

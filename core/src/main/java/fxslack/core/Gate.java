@@ -15,7 +15,7 @@ import static fxslack.core.Out.M;
 /// on a reader thread so every call has a real timeout (a lazily restored background tab never answers).
 public final class Gate implements AutoCloseable {
 
-    public static final String APP = "slk";
+    public static final String APP = "slackfx";
     public static final List<String> DOMAINS = List.of("slack.com");
 
     final GateClient client;

@@ -91,7 +91,7 @@ public final class Api {
     static String hint(String err) {
         return switch (err) {
             case "invalid_auth", "not_authed", "token_revoked", "account_inactive" ->
-                " -- the stored token no longer works; for the app token run 'slk auth --app', for a browser session log in and run 'slk auth'";
+                " -- the stored token no longer works; for the app token run 'slackfx auth --app', for a browser session log in and run 'slackfx auth'";
             case "missing_scope" -> " -- the token was not granted this scope; add it to the Slack app's manifest and reinstall, or use a browser session";
             case "not_allowed_token_type" -> " -- Slack does not accept this kind of token for this method";
             default -> "";

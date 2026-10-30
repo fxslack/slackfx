@@ -1,4 +1,4 @@
-package fxslack.cli.cmd;
+package fxslack.slackfx.cmd;
 
 import picocli.CommandLine.Command;
 import picocli.CommandLine.Mixin;
@@ -7,7 +7,7 @@ import fxslack.core.*;
 
 import module java.base;
 
-@Command(name = "raw", description = {"Call any Slack Web API method: slk raw conversations.members channel=C123 limit=50",
+@Command(name = "raw", description = {"Call any Slack Web API method: slackfx raw conversations.members channel=C123 limit=50",
     "For anything not wrapped as its own verb yet. Prints the JSON reply."})
 public final class RawVerb implements Runnable {
 

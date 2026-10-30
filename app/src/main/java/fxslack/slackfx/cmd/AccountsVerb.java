@@ -1,4 +1,4 @@
-package fxslack.cli.cmd;
+package fxslack.slackfx.cmd;
 
 import picocli.CommandLine.Command;
 import picocli.CommandLine.Parameters;
@@ -11,7 +11,7 @@ public final class AccountsVerb implements Runnable {
 
     @Override public void run() {
         var all = Store.loadSessions();
-        if (all.sessions().isEmpty()) line("no accounts yet -- log in to Slack in the browser, then run 'slk auth'");
+        if (all.sessions().isEmpty()) line("no accounts yet -- log in to Slack in the browser, then run 'slackfx auth'");
         all.sessions().forEach((k, s) -> line((k.equals(all.active()) ? "* " : "  ") + s.describe()));
     }
 

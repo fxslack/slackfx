@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>io.github.fxslack</groupId>
+        <artifactId>fxslack-parent</artifactId>
+        <version>0.1.0</version>
+    </parent>
+    <artifactId>fxslack-core</artifactId>
+
+    <!-- Slack over HTTPS, the session store, and browser capture (Gate). Shared by cli and app. -->
+    <dependencies>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.github.datapotter</groupId>
+            <artifactId>datapotter-datahelper-base</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.github.datapotter</groupId>
+            <artifactId>datapotter-datahelper-annotations</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.github.cdpai</groupId>
+            <artifactId>cdpai-gate-client</artifactId>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <annotationProcessorPaths>
+                        <path>
+                            <groupId>io.github.datapotter</groupId>
+                            <artifactId>datapotter-datahelper-processor</artifactId>
+                            <version>1.3</version>
+                        </path>
+                    </annotationProcessorPaths>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>

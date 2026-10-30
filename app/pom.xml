@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>io.github.fxslack</groupId>
+        <artifactId>fxslack-parent</artifactId>
+        <version>0.1.0</version>
+    </parent>
+    <artifactId>fxslack-slackfx</artifactId>
+    <name>slackfx</name>
+    <description>slackfx: a resident low-RAM Slack client that also gates the command line's writes.</description>
+
+    <properties>
+        <main.class>fxslack.slackfx.SlackFx</main.class>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <!-- tray notifications headed "slackfx" with its icon. Not on Maven Central yet: install it from its own repository first. -->
+            <groupId>io.github.littlejlib</groupId>
+            <artifactId>littlejlib-traynotify</artifactId>
+            <version>0.1</version>
+        </dependency>
+        <dependency>
+            <groupId>io.github.fxslack</groupId>
+            <artifactId>fxslack-core</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.github.leasegate</groupId>
+            <artifactId>leasegate-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.github.leasegate</groupId>
+            <artifactId>leasegate-frame</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.github.luvml</groupId>
+            <artifactId>luvjfx</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-base</artifactId>
+            <classifier>win</classifier>
+        </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-graphics</artifactId>
+            <classifier>win</classifier>
+        </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-controls</artifactId>
+            <classifier>win</classifier>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <finalName>slackfx</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+            </plugin>
+            <!-- the Windows exe (jr), in dll mode so the process is named slackfx: mvn package gives target/jr/slackfx.exe for
+                 this machine; mvn -Djr.source=url verify gives the release in target/jr/release. -Djr.installDir=<dir>
+                 also copies the exe there. -->
+            <plugin>
+                <groupId>io.github.jarrunner</groupId>
+                <artifactId>jr-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <phase>verify</phase>
+                        <goals><goal>exe</goal></goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <name>slackfx</name>
+                    <jar>${project.build.directory}/slackfx.jar</jar>
+                    <icon>${project.basedir}/src/main/jr/slackfx.ico</icon>
+                    <fileDescription>slackfx</fileDescription>
+                    <productName>slackfx</productName>
+                    <companyName>fxslack</companyName>
+                    <copyright>fxslack contributors</copyright>
+                    <javaVersion>25+</javaVersion>
+                    <jvmMode>dll</jvmMode>
+                    <vmArgs>
+                        <vmArg>-Xms16m</vmArg>
+                        <vmArg>-Xmx256m</vmArg>
+                        <vmArg>-Xss512k</vmArg>
+                        <vmArg>-XX:+UseSerialGC</vmArg>
+                        <vmArg>-XX:MinHeapFreeRatio=10</vmArg>
+                        <vmArg>-XX:MaxHeapFreeRatio=30</vmArg>
+                        <vmArg>-XX:TieredStopAtLevel=1</vmArg>
+                        <vmArg>-XX:MaxMetaspaceSize=192m</vmArg>
+                        <vmArg>-XX:ReservedCodeCacheSize=48m</vmArg>
+                        <vmArg>--enable-native-access=ALL-UNNAMED</vmArg>
+                    </vmArgs>
+                    <jarUrl>https://github.com/fxslack/slackfx/releases/download/v${project.version}/slackfx.jar</jarUrl>
+                    <updateUrl>https://github.com/fxslack/slackfx/releases/latest/download/slackfx.update.json</updateUrl>
+                    <supportName>fxslack</supportName>
+                    <supportIssues>https://github.com/fxslack/slackfx/issues</supportIssues>
+                    <supportUrl>https://github.com/fxslack/slackfx</supportUrl>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>

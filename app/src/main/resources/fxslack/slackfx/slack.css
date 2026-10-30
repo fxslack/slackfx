@@ -1,0 +1,152 @@
+/* slackfx's look, measured from Slack's own web client (app.slack.com, dark theme, aubergine, 2026-10-27) with
+   getComputedStyle, not eyeballed. Every colour is one of the -slk-* names below: change them here only.
+   Font: Lato (Slack's "Slack-Lato" is a build of it), bundled in fonts/ under the SIL Open Font License. */
+.root {
+    -fx-font-family: "Lato";
+    -slk-theme-hi: #3c1142;          /* rgb(67,19,73) at Slack's brightness(0.9) */
+    -slk-theme-lo: #1d021e;          /* rgb(32,2,33) at brightness(0.9) */
+    -slk-glass: rgba(16, 18, 20, 0.6);   /* the sidebar, over the theme layer */
+    -slk-main: #1a1d21;
+    -slk-input: #222529;
+    -slk-input-border: #565856;
+    -slk-text: #d1d2d3;
+    -slk-bright: #f8f8f8;
+    -slk-muted: #ababad;
+    -slk-side-text: rgba(227, 206, 235, 0.8);
+    -slk-side-selected: #7d3986;
+    -slk-side-selected-text: #efe1f5;
+    -slk-line: rgba(232, 232, 232, 0.13);
+    -slk-hover: #222529;
+    -slk-link: #2ba5ce;
+    -slk-mention: #1d9bd1;
+    -slk-code: #e8912d;
+    -slk-attach: #87909e;
+    -slk-tile: #ababad;
+}
+
+/* the frame: theme layer, 40 px top bar with the search box, 70 px rail, rounded workspace panel */
+.theme { -fx-background-color: radial-gradient(center 50% 40%, radius 75%, -slk-theme-hi 20%, -slk-theme-lo 100%); }
+.top-bar { -fx-background-color: transparent; }
+.search-box {
+    -fx-background-color: rgba(255, 255, 255, 0.12);
+    -fx-background-radius: 4;
+    -fx-border-color: rgba(255, 255, 255, 0.10);
+    -fx-border-radius: 4;
+    -fx-text-fill: -slk-bright;
+    -fx-prompt-text-fill: rgba(248, 248, 248, 0.75);
+    -fx-highlight-fill: -slk-mention;
+    -fx-font-size: 13;
+    -fx-padding: 4 12;
+    -fx-pref-height: 28;
+}
+.search-box:focused { -fx-background-color: -slk-main; -fx-border-color: rgba(255, 255, 255, 0.35); }
+.team-tile {
+    -fx-background-color: -slk-tile;
+    -fx-background-radius: 8;
+    -fx-border-color: -slk-line;
+    -fx-border-radius: 8;
+    -fx-text-fill: -slk-main;
+    -fx-font-size: 20;
+    -fx-font-weight: bold;
+}
+.workspace { -fx-border-color: -slk-line; -fx-border-width: 1; -fx-border-radius: 6 0 0 0; -fx-background-radius: 6 0 0 0; }
+
+/* the sidebar: dark glass, 49 px team header, 28 px rows inset 8 px with 6 px corners */
+.side { -fx-background-color: -slk-glass; -fx-background-radius: 6 0 0 0; }
+/* Lato Black loads as its own family, so Slack's weight 900 is written as that family, not as a weight */
+.team-name { -fx-text-fill: -slk-bright; -fx-font-size: 18; -fx-font-family: "Lato Black"; }
+.conv-list, .conv-list > .virtual-flow > .clipped-container > .sheet {
+    -fx-background-color: transparent;
+    -fx-control-inner-background: transparent;
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+}
+.conv-list .list-cell, .conv-list .list-cell:odd { -fx-background-color: transparent; -fx-padding: 0; }
+.conv-list .list-cell:disabled { -fx-opacity: 1; }
+.conv-list .list-cell:filled:hover { -fx-background-color: rgba(255, 255, 255, 0.06); -fx-background-insets: 0 8 0 8; -fx-background-radius: 6; }
+.conv-list .list-cell:filled:selected, .conv-list:focused .list-cell:filled:selected {
+    -fx-background-color: -slk-side-selected; -fx-background-insets: 0 8 0 8; -fx-background-radius: 6;
+}
+.conv-name, .conv-hash { -fx-text-fill: -slk-side-text; -fx-font-size: 15; }
+.conv-lock { -fx-fill: -slk-side-text; }
+.conv-heading { -fx-text-fill: -slk-side-text; -fx-font-size: 15; }
+.conv-list .list-cell:filled:selected .conv-name, .conv-list .list-cell:filled:selected .conv-hash { -fx-text-fill: -slk-side-selected-text; }
+.conv-list .list-cell:filled:selected .conv-lock { -fx-fill: -slk-side-selected-text; }
+.placeholder { -fx-text-fill: -slk-side-text; -fx-font-size: 13; }
+/* unread: bright and heavy, as Slack; a direct message also shows its count in the aubergine theme's mention badge */
+.conv-name.unread, .conv-hash.unread { -fx-text-fill: -slk-bright; -fx-font-family: "Lato Black"; }
+.conv-lock.unread { -fx-fill: -slk-bright; }
+.badge {
+    -fx-background-color: #cd2553;
+    -fx-background-radius: 9;
+    -fx-text-fill: white;
+    -fx-font-size: 12;
+    -fx-font-weight: bold;
+    -fx-padding: 0 6 0 6;
+    -fx-min-height: 18;
+    -fx-alignment: center;
+}
+
+/* the message pane: 49 px header, messages on #1a1d21, the write box */
+.main-pane { -fx-background-color: -slk-main; }
+.chat-title { -fx-background-color: -slk-main; -fx-border-color: transparent transparent -slk-line transparent; }
+.chat-title-text { -fx-text-fill: -slk-text; -fx-font-size: 18; -fx-font-family: "Lato Black"; }
+.chat-hint { -fx-text-fill: -slk-muted; -fx-font-size: 12; }
+.msg-list, .msg-list > .virtual-flow > .clipped-container > .sheet {
+    -fx-background-color: transparent;
+    -fx-control-inner-background: transparent;
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+}
+.msg-list .list-cell, .msg-list .list-cell:odd { -fx-background-color: transparent; -fx-padding: 0; }
+.msg-list .list-cell:filled:hover { -fx-background-color: -slk-hover; }
+.msg-list .list-cell:filled:selected, .msg-list:focused .list-cell:filled:selected { -fx-background-color: #2a2d31; }
+.msg-who { -fx-text-fill: -slk-bright; -fx-font-size: 15; -fx-font-family: "Lato Black"; }
+.msg-when { -fx-text-fill: -slk-muted; -fx-font-size: 12; }
+.msg-meta { -fx-text-fill: -slk-link; -fx-font-size: 13; -fx-font-weight: bold; }
+.day-pill {
+    -fx-background-color: -slk-main;
+    -fx-background-radius: 24;
+    -fx-border-color: -slk-line;
+    -fx-border-radius: 24;
+    -fx-text-fill: -slk-text;
+    -fx-font-size: 13;
+    -fx-font-weight: bold;
+    -fx-padding: 4 16 4 16;
+}
+.day-line { -fx-background-color: -slk-line; -fx-pref-height: 1; }
+.attach-bar { -fx-background-color: -slk-attach; -fx-background-radius: 8; }
+.reaction {
+    -fx-background-color: rgba(232, 232, 232, 0.06);
+    -fx-background-radius: 12;
+    -fx-border-color: -slk-line;
+    -fx-border-radius: 12;
+    -fx-text-fill: -slk-text;
+    -fx-font-size: 12;
+    -fx-padding: 2 8 2 8;
+}
+.composer-box {
+    -fx-background-color: -slk-input;
+    -fx-background-radius: 8;
+    -fx-border-color: -slk-input-border;
+    -fx-border-radius: 8;
+}
+.compose, .compose .content, .compose .scroll-pane, .compose .scroll-pane .viewport {
+    -fx-background-color: transparent;
+    -fx-control-inner-background: transparent;
+    -fx-background-insets: 0;
+}
+.compose { -fx-text-fill: -slk-text; -fx-prompt-text-fill: -slk-muted; -fx-highlight-fill: -slk-mention; -fx-font-size: 15; -fx-padding: 0; }
+.compose .content { -fx-padding: 8 12 8 12; }
+
+/* the legend along the bottom (ours, not Slack's), on the theme layer */
+.legend { -fx-background-color: transparent; }
+.status { -fx-text-fill: #e9dfe9; -fx-font-size: 12; }
+
+/* scroll bars: thin, no arrows, as Slack's */
+.conv-list .scroll-bar, .msg-list .scroll-bar { -fx-background-color: transparent; }
+.conv-list .scroll-bar .thumb, .msg-list .scroll-bar .thumb { -fx-background-color: rgba(255, 255, 255, 0.2); -fx-background-radius: 4; }
+.conv-list .scroll-bar .track, .msg-list .scroll-bar .track { -fx-background-color: transparent; }
+.conv-list .scroll-bar .increment-button, .conv-list .scroll-bar .decrement-button,
+.msg-list .scroll-bar .increment-button, .msg-list .scroll-bar .decrement-button { -fx-padding: 0; -fx-pref-height: 0; -fx-pref-width: 0; -fx-opacity: 0; }
+.conv-list .scroll-bar:horizontal, .msg-list .scroll-bar:horizontal { -fx-pref-height: 0; -fx-opacity: 0; }

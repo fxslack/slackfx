@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>io.github.fxslack</groupId>
+        <artifactId>fxslack-parent</artifactId>
+        <version>0.1.0</version>
+    </parent>
+    <artifactId>fxslack-cli</artifactId>
+    <name>slk</name>
+    <description>slk: Slack from the command line.</description>
+
+    <properties>
+        <main.class>fxslack.cli.Slk</main.class>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>io.github.fxslack</groupId>
+            <artifactId>fxslack-core</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>info.picocli</groupId>
+            <artifactId>picocli</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.github.xyz-jphil</groupId>
+            <artifactId>xyz-jphil-windows_console_set_unicode_output</artifactId>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <finalName>slk</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+            </plugin>
+            <!-- the Windows exe (jr): mvn package gives target/jr/slk.exe for this machine; mvn -Djr.source=url verify
+                 gives the release in target/jr/release (the exe fetches slk.jar from the GitHub release, checked by
+                 SHA-256, and -Xjr:update moves it to the next one). -Djr.installDir=<dir> also copies the exe there. -->
+            <plugin>
+                <groupId>io.github.jarrunner</groupId>
+                <artifactId>jr-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <phase>verify</phase>
+                        <goals><goal>exe</goal></goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <name>slk</name>
+                    <jar>${project.build.directory}/slk.jar</jar>
+                    <icon>${project.basedir}/../app/src/main/jr/slackfx.ico</icon>
+                    <fileDescription>slk, Slack from the command line</fileDescription>
+                    <productName>slk</productName>
+                    <companyName>fxslack</companyName>
+                    <copyright>fxslack contributors</copyright>
+                    <javaVersion>25+</javaVersion>
+                    <jvmMode>dll</jvmMode>
+                    <vmArgs>
+                        <vmArg>-Xms8m</vmArg>
+                        <vmArg>-Xmx128m</vmArg>
+                        <vmArg>-Xss512k</vmArg>
+                        <vmArg>-XX:+UseSerialGC</vmArg>
+                        <vmArg>-XX:TieredStopAtLevel=1</vmArg>
+                        <vmArg>-XX:ReservedCodeCacheSize=24m</vmArg>
+                        <vmArg>--enable-native-access=ALL-UNNAMED</vmArg>
+                    </vmArgs>
+                    <jarUrl>https://github.com/fxslack/slackfx/releases/download/v${project.version}/slk.jar</jarUrl>
+                    <updateUrl>https://github.com/fxslack/slackfx/releases/latest/download/slk.update.json</updateUrl>
+                    <supportName>fxslack</supportName>
+                    <supportIssues>https://github.com/fxslack/slackfx/issues</supportIssues>
+                    <supportUrl>https://github.com/fxslack/slackfx</supportUrl>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>

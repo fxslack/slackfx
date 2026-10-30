@@ -1,0 +1,44 @@
+{
+  "display_information": {
+    "name": "slackfx",
+    "description": "A small Slack client and command line that act as you, with your own user token."
+  },
+  "oauth_config": {
+    "scopes": {
+      "user": [
+        "channels:history",
+        "channels:read",
+        "groups:history",
+        "groups:read",
+        "im:history",
+        "im:read",
+        "mpim:history",
+        "mpim:read",
+        "users:read",
+        "chat:write",
+        "reactions:read",
+        "reactions:write",
+        "search:read",
+        "files:read"
+      ]
+    }
+  },
+  "settings": {
+    "event_subscriptions": {
+      "user_events": [
+        "message.channels",
+        "message.groups",
+        "message.im",
+        "message.mpim",
+        "reaction_added",
+        "reaction_removed"
+      ]
+    },
+    "interactivity": {
+      "is_enabled": false
+    },
+    "org_deploy_enabled": false,
+    "socket_mode_enabled": true,
+    "token_rotation_enabled": false
+  }
+}

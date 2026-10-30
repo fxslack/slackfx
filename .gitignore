@@ -1,0 +1,15 @@
+target/
+shade/
+dist/
+prp/
+.claude/
+CLAUDE.md
+credentials.json
+app-config.json
+*.key
+*.pem
+*.p12
+*.log
+*.jar
+*.aot
+*.aot.config

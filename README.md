@@ -102,7 +102,7 @@ mvn verify           also the exe, in app/target/jr
 
 `mvn -Djr.installDir=<folder> verify` copies the exes into a folder on your PATH. `mvn -Djr.source=url verify` builds the release exes, which fetch their jar from the GitHub release.
 
-slackfx depends on two libraries that are not yet on Maven Central as releases: `leasegate-frame` (needs the 0.3 snapshot from the Central snapshot repository, which the parent pom names) and `cdpai-gate-client` (install it from its repository with `mvn install` before building). Everything else resolves from Central.
+Every dependency resolves from Maven Central, with one exception: `leasegate-frame` is used at its 0.3 snapshot, from the Central snapshot repository that the parent pom already names. A build from an empty local repository works with no extra steps.
 
 ## Where things are
 

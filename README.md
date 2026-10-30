@@ -102,7 +102,7 @@ mvn verify           also the exe, in app/target/jr
 ```
 
 `mvn -Djr.installDir=<folder> verify` copies the exe into a folder on your PATH. `mvn -Djr.source=url verify` builds the release exe, which fetches its jar from the GitHub release.
-
+Every dependency resolves from Maven Central. A build from an empty local repository works with no extra steps.
 Every dependency resolves from Maven Central, with one exception: `leasegate-frame` is used at its 0.3 snapshot, from the Central snapshot repository that the parent pom already names. A build from an empty local repository works with no extra steps.
 
 ## Where things are
